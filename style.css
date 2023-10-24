@@ -1,0 +1,11 @@
+
+
+#interface{
+    display: flex;
+    flex-direction: row;
+}
+
+#video-player {
+    width: 50%;
+    /* height: ; */
+}
