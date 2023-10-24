@@ -9,17 +9,76 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
   </head>
   <body>
-    <div id="interface">
-        <script src="index.js"></script>
-        <div id="video-container">
-            <video id="video-player" controls>
-                <source src="dog_video.mp4" type="video/mp4">
-            </video>
+    <script src="shaders.js"></script>
+    <script src="compressor.js"></script>
+
+    <div class='parent'>
+      <div class="child">
+        <div>
+          <label> Input Video </label>
         </div>
-        <div id="menu">
-            <!-- Add menu options here -->
-            <button id="play-button" onclick="play_pause">PLAY/PAUSE</button>
+        <video id="inputVideo" controls autoplay>
+          <source src="dog_video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="child">
+        <div>
+          <label> Saturation </label>
+          <input type="range" id="saturationSlider" min="0" max="100" value="100">
+          <span id="saturationValue">100%</span>
         </div>
+        <div>
+          <label> Redness </label>
+          <input type="range" id="rednessSlider" min="0" max="100" value="100">
+          <span id="rednessValue">100%</span>
+        </div>
+        <div>
+          <label> Brightness </label>
+          <input type="range" id="brightnessSlider" min="0" max="200" value="100">
+          <span id="brightnessValue">100%</span>
+        </div>
+      </div>
+      <div class="child">
+        <div>
+          <label for="filterType">Select Filter Type:</label>
+          <select id="filterType">
+            <option value="none">No Filter</option>
+            <option value="lowpass">Low-Pass Filter</option>
+            <option value="highpass">High-Pass Filter</option>
+          </select>
+        </div>
+        <div>
+          <label for="threshold">Compression Threshold:</label>
+          <input type="range" id="threshold" min="-100" max="0" step="1" value="-50">
+        </div>
+      </div>
     </div>
+
+    <div class="parent">
+      <div>
+        <label> Resulting Video </label>
+      </div>
+      <div id="canvasDiv" width=70vw>
+        <canvas id="outputCanvas" ></canvas>
+      </div>
+    </div>
+
+
+
+      <!-- <div>
+        <label for="filterType">Select Filter Type:</label>
+        <select id="filterType">
+          <option value="none">No Filter</option>
+          <option value="lowpass">Low-Pass Filter</option>
+          <option value="highpass">High-Pass Filter</option>
+        </select>
+      </div>
+      <div>
+        <label for="threshold">Compression Threshold:</label>
+        <input type="range" id="threshold" min="-100" max="0" step="1" value="-50">
+      </div> -->
+
+      <button id="startAudioButton">start</button>
   </body>
 </html>

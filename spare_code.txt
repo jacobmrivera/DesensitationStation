@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Saturation Adjuster</title>
+</head>
+<body>
+    <video id="inputVideo" controls autoplay>
+        <source src="path_to_your_video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <canvas id="outputCanvas"></canvas>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+////
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Saturation Adjuster</title>
+</head>
+<body>
+    <video id="inputVideo" controls autoplay>
+        <source src="path_to_your_video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <canvas id="outputCanvas"></canvas>
+    <input type="range" id="saturationSlider" min="0" max="200" value="100">
+    <span id="saturationValue">100%</span>
+
+    <script src="script.js"></script>
+</body>
+</html>

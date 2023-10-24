@@ -5,7 +5,32 @@
     flex-direction: row;
 }
 
-#video-player {
+#inputVideo {
     width: 50%;
     /* height: ; */
+}
+
+.parent {
+    border: 0px;
+    margin: 1rem;
+    padding: 2rem 2rem;
+    text-align: center;
+}
+
+.child {
+    display: inline-block;
+    border: 0px;
+    padding: 1rem 1rem;
+    vertical-align: middle;
+}
+
+#outputCanvas{
+    width: 80%;
+}
+
+#canvasDiv {
+    /* width: 100px; */
+    padding: 2rem 2rem;
+    vertical-align: middle;
+    text-align: center;
 }
