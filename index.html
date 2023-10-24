@@ -13,9 +13,10 @@
     <script src="compressor.js"></script>
 
     <div class='parent'>
+      <h1> The Desensitization Station </h1>
       <div class="child">
         <div>
-          <label> Input Video </label>
+          <h2> Input Video </h2>
         </div>
         <video id="inputVideo" controls autoplay>
           <source src="dog_video.mp4" type="video/mp4">
@@ -23,6 +24,7 @@
         </video>
       </div>
       <div class="child">
+        <h3> Visual Filtering </h3>
         <div>
           <label> Saturation </label>
           <input type="range" id="saturationSlider" min="0" max="100" value="100">
@@ -40,6 +42,7 @@
         </div>
       </div>
       <div class="child">
+        <h3> Audio Filtering </h3>
         <div>
           <label for="filterType">Select Filter Type:</label>
           <select id="filterType">
@@ -57,14 +60,12 @@
 
     <div class="parent">
       <div>
-        <label> Resulting Video </label>
+        <h2> Resulting Video </h2>
       </div>
       <div id="canvasDiv" width=70vw>
         <canvas id="outputCanvas" ></canvas>
       </div>
     </div>
-
-
 
       <!-- <div>
         <label for="filterType">Select Filter Type:</label>
