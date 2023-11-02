@@ -136,17 +136,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     saturationSlider.addEventListener('input', function() {
         originalSaturation = this.value / 100;
-        saturationValue.innerText = `${originalSaturation * 100}%`;
+        saturationValue.innerText = `${Math.ceil(originalSaturation * 100)}%`;
     });
 
     rednessSlider.addEventListener('input', function() {
         originalRedness = this.value / 100;
-        rednessValue.innerText = `${originalRedness * 100}%`;
+        rednessValue.innerText = `${Math.ceil(originalRedness * 100)}%`;
     });
 
     brightnessSlider.addEventListener('input', function() {
         originalBrightness = this.value / 100;
-        brightnessValue.innerText = `${originalBrightness * 100}%`;
+        brightnessValue.innerText = `${Math.ceil(originalBrightness * 100)}%`;
     });
 
     video.addEventListener('loadedmetadata', function() {

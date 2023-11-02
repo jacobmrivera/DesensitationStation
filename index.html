@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML 5 Boilerplate</title>
+    <title>The Desensitization Station</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
   </head>
   <body>
     <script src="shaders.js"></script>
     <script src="compressor.js"></script>
+    <script src="buttons.js"></script>
 
     <div class='parent'>
       <h1> The Desensitization Station </h1>
@@ -22,6 +23,10 @@
           <source src="dog_video.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
+      </div>
+      <div id="controls">
+        <button id="play-button" class="control-buttons" onclick="play">Play</button>
+        <button id="pause-button" class="control-buttons" onclick="pause">Pause</button>
       </div>
       <div class="child">
         <h3> Visual Filtering </h3>
@@ -80,6 +85,6 @@
         <input type="range" id="threshold" min="-100" max="0" step="1" value="-50">
       </div> -->
 
-      <button id="startAudioButton">start</button>
+      <!-- <button id="startAudioButton">start</button> -->
   </body>
 </html>
