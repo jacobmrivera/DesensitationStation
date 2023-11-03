@@ -41,56 +41,63 @@
         <button id="play-button" class="control-buttons" onclick="play">Play</button>
         <button id="pause-button" class="control-buttons" onclick="pause">Pause</button>
       </div>
-      <div class="child">
-        <h3> Visual Filtering </h3>
-        <div class="vis-filter">
-          <label> Saturation </label>
-          <input type="range" id="saturationSlider" min="0" max="100" value="100">
-          <span id="saturationValue">100%</span>
+
+      <div id="video-settings">
+        <div class="play-settings">
+          <h3> Visual Filtering </h3>
+          <div class="vis-filter">
+            <label> Brightness </label>
+            <input type="range" id="brightnessSlider" min="0" max="200" value="100">
+            <span id="brightnessValue">100%</span>
+          </div>
+          <div class="vis-filter">
+            <label> Saturation </label>
+            <input type="range" id="saturationSlider" min="0" max="100" value="100">
+            <span id="saturationValue">100%</span>
+          </div>
+          <div class="vis-filter">
+            <label> Redness </label>
+            <input type="range" id="rednessSlider" min="0" max="100" value="100">
+            <span id="rednessValue">100%</span>
+          </div>
+          <div class="vis-filter">
+            <label> Greenness </label>
+            <input type="range" id="greennessSlider" min="0" max="100" value="100">
+            <span id="greennessValue">100%</span>
+          </div>
+          <div class="vis-filter">
+            <label> Blueness </label>
+            <input type="range" id="bluenessSlider" min="0" max="100" value="100">
+            <span id="bluenessValue">100%</span>
+          </div>
+
+
+          <div id="color-buttons-div">
+            <!-- Red deficient -->
+            <button class="color-button" id="pro" onclick="setPro()">Protanopia</button>
+            <!-- Green deficient -->
+            <button class="color-button" id="deu" onclick="setDeu()">Deuteranopia</button>
+            <!-- Blue deficient -->
+            <button class="color-button" id="tri" onclick="setTri()">Tritanopia</button>
+          </div>
         </div>
-        <div class="vis-filter">
-          <label> Redness </label>
-          <input type="range" id="rednessSlider" min="0" max="100" value="100">
-          <span id="rednessValue">100%</span>
-        </div>
-        <div class="vis-filter">
-          <label> Brightness </label>
-          <input type="range" id="brightnessSlider" min="0" max="200" value="100">
-          <span id="brightnessValue">100%</span>
-        </div>
-      </div>
-      <div class="child">
-        <h3> Audio Filtering </h3>
-        <div>
-          <label for="filterType">Select Filter Type:</label>
-          <select id="filterType">
-            <option value="none">No Filter</option>
-            <option value="lowpass">Low-Pass Filter</option>
-            <option value="highpass">High-Pass Filter</option>
-          </select>
-        </div>
-        <div>
-          <label for="threshold">Compression Threshold:</label>
-          <input type="range" id="threshold" min="-100" max="0" step="1" value="-50">
+
+        <div class="play-settings">
+          <h3> Audio Filtering </h3>
+          <div>
+            <label for="filterType">Select Filter Type:</label>
+            <select id="filterType">
+              <option value="none">No Filter</option>
+              <option value="lowpass">Low-Pass Filter</option>
+              <option value="highpass">High-Pass Filter</option>
+            </select>
+          </div>
+          <div>
+            <label for="threshold">Compression Threshold:</label>
+            <input type="range" id="threshold" min="-100" max="0" step="1" value="-50">
+          </div>
         </div>
       </div>
     </div>
-
-
-
-      <!-- <div>
-        <label for="filterType">Select Filter Type:</label>
-        <select id="filterType">
-          <option value="none">No Filter</option>
-          <option value="lowpass">Low-Pass Filter</option>
-          <option value="highpass">High-Pass Filter</option>
-        </select>
-      </div>
-      <div>
-        <label for="threshold">Compression Threshold:</label>
-        <input type="range" id="threshold" min="-100" max="0" step="1" value="-50">
-      </div> -->
-
-      <!-- <button id="startAudioButton">start</button> -->
   </body>
 </html>

@@ -27,6 +27,21 @@
     vertical-align: middle;
 }
 
+#video-settings{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.play-settings {
+    /* font-family: sans-serif; */
+    /* display: flex; */
+    flex-direction: row;
+    border: 0px;
+    padding: 1rem 1rem;
+    
+}
+
 #videos-div {
     display: flex;
     flex-direction: row;
@@ -47,7 +62,7 @@
 } */
 
 #outputCanvas{
-    width: 100%;
+    width: 108%;
 }
 
 #canvasDiv {
@@ -75,3 +90,15 @@
 }
 
 
+#color-buttons-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.color-button {
+    margin: 3%;
+    width: 60%;
+}

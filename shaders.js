@@ -2,12 +2,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const video = document.getElementById('inputVideo');
     const canvas = document.getElementById('outputCanvas');
     const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+
     const saturationSlider = document.getElementById('saturationSlider');
     const saturationValue = document.getElementById('saturationValue');
     const rednessSlider = document.getElementById('rednessSlider');
     const rednessValue = document.getElementById('rednessValue');
+    const bluenessSlider = document.getElementById('bluenessSlider');
+    const bluenessValue = document.getElementById('bluenessValue');
+    const greennessSlider = document.getElementById('greennessSlider');
+    const greennessValue = document.getElementById('greennessValue');
     const brightnessSlider = document.getElementById('brightnessSlider');
     const brightnessValue = document.getElementById('brightnessValue');
+
+    const redButton = document.getElementById('pro');
+    const greenButton = document.getElementById("deu");
+    const blueButton = document.getElementById("tri");
 
     if (!gl) {
         console.error('Unable to initialize WebGL. Your browser may not support it.');
@@ -16,6 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let originalSaturation = 1.0;
     let originalRedness = 1.0;
+    let originalGreenness = 1.0;
+    let originalBlueness = 1.0;
     let originalBrightness = 1.0;
 
     const vertexShaderSource = `
@@ -34,6 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
         uniform sampler2D u_texture;
         uniform float u_saturation;
         uniform float u_redness;
+        uniform float u_blueness;
+        uniform float u_greenness;
         uniform float u_brightness;
 
         void main() {
@@ -42,8 +55,16 @@ document.addEventListener('DOMContentLoaded', function() {
             float average = (color.r + color.g + color.b) / 3.0;
             // Apply saturation
             color.rgb = mix(vec3(average), color.rgb, u_saturation);
+
             // Apply redness
             color.r = mix(average, color.r, u_redness);
+
+            // Apply blueness
+            color.b = mix(average, color.b, u_blueness);
+
+            // Apply greenness
+            color.g = mix(average, color.g, u_greenness);
+
             // Apply brightness
             color.rgb *= u_brightness;
 
@@ -109,11 +130,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const uTextureLocation = gl.getUniformLocation(shaderProgram, 'u_texture');
     const uSaturationLocation = gl.getUniformLocation(shaderProgram, 'u_saturation');
     const uRednessLocation = gl.getUniformLocation(shaderProgram, 'u_redness');
+    const uBluenessLocation = gl.getUniformLocation(shaderProgram, 'u_blueness');
+    const uGreennessLocation = gl.getUniformLocation(shaderProgram, 'u_greenness');
     const uBrightnessLocation = gl.getUniformLocation(shaderProgram, 'u_brightness');
 
     gl.uniform1i(uTextureLocation, 0);
     gl.uniform1f(uSaturationLocation, originalSaturation);
     gl.uniform1f(uRednessLocation, originalRedness);
+    gl.uniform1f(uBluenessLocation, originalBlueness);
+    gl.uniform1f(uGreennessLocation, originalGreenness);
     gl.uniform1f(uBrightnessLocation, originalBrightness);
 
     function render() {
@@ -127,6 +152,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         gl.uniform1f(uSaturationLocation, originalSaturation);
         gl.uniform1f(uRednessLocation, originalRedness);
+        gl.uniform1f(uBluenessLocation, originalBlueness);
+        gl.uniform1f(uGreennessLocation, originalGreenness);
         gl.uniform1f(uBrightnessLocation, originalBrightness);
 
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
@@ -144,9 +171,46 @@ document.addEventListener('DOMContentLoaded', function() {
         rednessValue.innerText = `${Math.ceil(originalRedness * 100)}%`;
     });
 
+    bluenessSlider.addEventListener('input', function() {
+        originalBlueness = this.value / 100;
+        bluenessValue.innerText = `${Math.ceil(originalBlueness * 100)}%`;
+    });
+
+    greennessSlider.addEventListener('input', function() {
+        originalGreenness = this.value / 100;
+        greennessValue.innerText = `${Math.ceil(originalGreenness * 100)}%`;
+    });
+
     brightnessSlider.addEventListener('input', function() {
         originalBrightness = this.value / 100;
         brightnessValue.innerText = `${Math.ceil(originalBrightness * 100)}%`;
+    });
+
+    redButton.addEventListener('click', function() {
+        originalRedness = rednessSlider.value / 100;
+        rednessValue.innerText = "0%";
+        originalBlueness = bluenessSlider.value / 100;
+        bluenessValue.innerText = "100%";
+        originalGreenness = greennessSlider.value / 100;
+        greennessValue.innerText = "100%";
+    });
+
+    blueButton.addEventListener('click', function() {
+        originalRedness = rednessSlider.value / 100;
+        rednessValue.innerText = "100%";
+        originalBlueness = bluenessSlider.value / 100;
+        bluenessValue.innerText = "0%";
+        originalGreenness = greennessSlider.value / 100;
+        greennessValue.innerText = "100%";
+    });
+
+    greenButton.addEventListener('click', function() {
+        originalRedness = rednessSlider.value / 100;
+        rednessValue.innerText = "100%";
+        originalGreenness = greennessSlider.value / 100;
+        greennessValue.innerText = "0%";
+        originalBlueness = bluenessSlider.value / 100;
+        bluenessValue.innerText = "100%";
     });
 
     video.addEventListener('loadedmetadata', function() {
@@ -157,5 +221,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Path to source video
-    video.src = 'dog_video.mp4';
+    video.src = 'mickey.mp4';
 });
