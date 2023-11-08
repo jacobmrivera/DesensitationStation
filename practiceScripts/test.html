@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>The Desensitization Station</title>
+    <link rel="stylesheet" href="test.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script src="video.js"></script>
+
+  </head>
+  <body>
+    <!-- <script src="shaders.js"></script> -->
+    <!-- <script src="buttons.js"></script> -->
+    <!-- <script src="sliders.js"></script> -->
+
+
+    <div class='parent'>
+      <h1> The Desensitization Station </h1>
+      <div id="videos-div">
+        <!-- <div >
+          <h2> Input Video </h2>
+        </div> -->
+        <!-- <div class="video" > -->
+          <!-- <div class="color-filter"></div> -->
+
+    <video id="videoPlayer" src="mickey.mp4"  width="640" height="360" controls>
+        <!-- Your video source here -->
+     </video>
+     <canvas id="canvas" width="640" height="360" ></canvas>
+        </div>
+
+
+        <!-- </div> -->
+
+
+      <div id="controls">
+        <button id="play-button" class="control-buttons" >Play</button>
+        <button id="pause-button" class="control-buttons" onclick="pause()">Pause</button>
+      </div>
+
+      <div id="video-settings">
+        <div class="play-settings">
+          <h3> Visual Filtering </h3>
+          <div class="vis-filter">
+            <label> Brightness </label>
+            <input type="range" id="brightnessSlider" min="0" max="200" value="100">
+            <span id="brightnessValue">100%</span>
+          </div>
+          <div class="vis-filter">
+            <label> Saturation </label>
+            <input type="range" id="saturationSlider" min="0" max="200" value="100">
+            <span id="saturationValue">100%</span>
+          </div>
+          <div class="vis-filter">
+            <label> Redness </label>
+            <input type="range" id="rednessSlider" min="0" max="100" value="50">
+            <span id="rednessValue">100%</span>
+          </div>
+          <div class="vis-filter">
+            <label> Greenness </label>
+            <input type="range" id="greennessSlider" min="0" max="100" value="50">
+            <span id="greennessValue">100%</span>
+          </div>
+          <div class="vis-filter">
+            <label> Blueness </label>
+            <input type="range" id="bluenessSlider" min="0" max="100" value="50">
+            <span id="bluenessValue">100%</span>
+          </div>
+
+
+          <div id="color-buttons-div">
+            <!-- Red deficient -->
+            <button class="color-button" id="pro" onclick="setPro()">Protanopia</button>
+            <!-- Green deficient -->
+            <button class="color-button" id="deu" onclick="setDeu()">Deuteranopia</button>
+            <!-- Blue deficient -->
+            <button class="color-button" id="tri" onclick="setTri()">Tritanopia</button>
+          </div>
+        </div>
+
+        <div class="play-settings">
+          <h3> Audio Filtering </h3>
+          <div>
+            <label for="filterType">Select Filter Type:</label>
+            <select id="filterType">
+              <option value="none">No Filter</option>
+              <option value="lowpass">Low-Pass Filter</option>
+              <option value="highpass">High-Pass Filter</option>
+            </select>
+          </div>
+          <div>
+            <label for="threshold">Compression Threshold:</label>
+            <input type="range" id="threshold" min="-100" max="0" step="1" value="-50">
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

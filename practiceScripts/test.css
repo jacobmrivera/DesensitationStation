@@ -1,0 +1,44 @@
+#qvideoPlayer {
+    border: 10px solid black;
+    /* filter: brightness(50%); */
+    /* width: 40%; */
+    max-width: 100%;
+     height: auto;
+      
+    /* z-index: 1;
+    filter: hue-rotate(0deg); */
+
+}
+
+/* #canvas {
+    width: 400px;
+    width: 400px;
+} */
+
+/* .video{
+    background-color: blueviolet; 
+    opacity: 80%; 
+    z-index: 2;
+}
+ */
+
+ #qvideos-div {
+    width: 40%;
+ }
+
+ .qcolor-filter {
+    width: 100%;
+    height: 100%;
+    border: 10px;
+    background-color: rgba(255, 0, 0, 0.5); /* Red color with 50% opacity */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1; /* Adjust z-index as needed to layer it appropriately */
+  }
+  
+.qvideo {
+    position: relative;
+    display: inline-block; /* or use any other desired display property */
+
+  }
