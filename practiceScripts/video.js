@@ -29,7 +29,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
       // Modify the pixel values as needed
       for (let i = 0; i < data.length; i += 4) {
         // Modify RGBA values here, e.g., invert colors
-        // data[i] = 255; // - data[i];         // Red
+        data[i] = 255; // - data[i];         // Red
         // data[i + 1] = 255;// - data[i + 1]; // Green
         // data[i + 2] = 255;// - data[i + 2]; // Blue
         // Leave alpha channel (data[i + 3]) unchanged
