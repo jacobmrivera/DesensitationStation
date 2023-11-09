@@ -15,17 +15,17 @@ window.addEventListener("DOMContentLoaded", (event) => {
         requestAnimationFrame(processFrame);
     }
     document.getElementById('play-button').addEventListener('click', playVid);
-    
-    
+
+
     function processFrame() {
         console.log("frame")
       // Draw the current frame from the video onto the canvas
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    
+
       // Get the image data from the canvas
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height, );
       const data = imageData.data;
-    
+
       // Modify the pixel values as needed
       for (let i = 0; i < data.length; i += 4) {
         // Modify RGBA values here, e.g., invert colors
