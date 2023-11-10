@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const greenButton = document.getElementById("deu");
     const blueButton = document.getElementById("tri");
 
+
     if (!gl) {
         console.error('Unable to initialize WebGL. Your browser may not support it.');
         return;
@@ -221,5 +222,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Path to source video
-    video.src = 'mickey.mp4';
+    video.src = 'flashing.mp4';
 });

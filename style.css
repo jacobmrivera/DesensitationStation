@@ -19,18 +19,10 @@
     text-align: center;
 }
 
-.child {
-    font-family: sans-serif;
-    display: inline-block;
-    border: 0px;
-    padding: 1rem 1rem;
-    vertical-align: middle;
-}
-
 #video-settings{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    /* justify-content: center; */
 }
 
 .play-settings {
@@ -54,7 +46,7 @@
     width: 50%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 
 /* #videos > .child {
@@ -68,7 +60,7 @@
 #canvasDiv {
     /* width: 100px; */
     padding: 2rem 2rem 3rem 2rem;
-    vertical-align: middle;
+    /* vertical-align: middle; */
     text-align: center;
 }
 
@@ -101,4 +93,8 @@
 .color-button {
     margin: 3%;
     width: 60%;
+}
+
+#canvas {
+    width: 40%;
 }

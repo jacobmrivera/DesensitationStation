@@ -12,20 +12,21 @@
     <script src="shaders.js"></script>
     <script src="compressor.js"></script>
     <script src="buttons.js"></script>
+    <script src="flash_detection.js"></script>
 
     <div class='parent'>
       <h1> The Desensitization Station </h1>
       <div id="videos-div">
         <div class="video">
-          <div>
+          <!-- <div>
             <h2> Input Video </h2>
-          </div>
+          </div> -->
           <!-- <video id="inputVideo"  width="1920" height="1080" controls autoplay>
 
             <source src="dog_video.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video> -->
-          <video id="inputVideo" src="mickey.mp4"  width="1920" height="1080" controls>
+          <video id="inputVideo" src="flashing.mp4"  width="1920" height="1080" controls>
 
         </div>
 
@@ -35,6 +36,8 @@
           </div>
           <div id="canvasDiv">
             <canvas id="outputCanvas"  width="1920" height="1080" ></canvas>
+            <canvas id="canvas"  width="1920" height="1080" ></canvas>
+
           </div>
         </div>
       </div>
@@ -102,5 +105,10 @@
         </div>
       </div>
     </div>
+    <!-- <script>
+      document.getElementById('videoPlayer').addEventListener('play', function() {
+          initFlashDetection();
+      });
+    </script> -->
   </body>
 </html>
