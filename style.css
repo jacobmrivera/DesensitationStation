@@ -65,6 +65,9 @@
     width: 100%;
 }
 
+#outputCanvas2 {
+    visibility: hidden;
+}
 #canvasDiv {
     width: 90%;
     padding: 2rem 2rem 3rem 2rem;

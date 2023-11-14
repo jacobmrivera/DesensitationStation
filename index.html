@@ -9,9 +9,9 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
   </head>
   <body>
-    <script src="flash_detector_working.js"></script>
+    <script type="module" src="flash_detector_working.js"></script>
 
-    <!-- <script src="shaders.js"></script> -->
+    <script type="module" src="shaders.js"></script>
     <!-- <script src="practiceScripts/sliders.js"></script> -->
 
 
@@ -27,7 +27,7 @@
           <div>
             <h2> Input Video </h2>
           </div>
-          <video id="inputVideo" src="pokemon.mp4"   controls>
+          <video id="inputVideo" src="mickey.mp4"   controls>
         </div>
 
         <div class="video-panel">
@@ -36,7 +36,7 @@
           </div>
           <div id="canvasDiv">
             <canvas id="outputCanvas"  width="1920" height="1080" ></canvas>
-            <canvas id="outputCanvas2"  width="1920" height="1080" ></canvas>
+            <canvas id="outputCanvas2"  width="1920" height="1080" style="position:absolute"></canvas>
 
           </div>
         </div>
@@ -122,6 +122,8 @@
           initFlashDetection();
       });
     </script> -->
+
+    <div id="filter_num" style="visibility: hidden;">-1</div>
 
   </body>
 </html>

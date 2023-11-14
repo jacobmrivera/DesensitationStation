@@ -21,3 +21,11 @@
 - **final iteration:**
 	- implement user upload capabilities
 	- implement preview description
+
+
+
+
+
+THINK ABOUT EVLAUATION AND HOW WE WILL ANSWER THE RESEARCH QUESTION
+TO ADD HCI MEANING
+

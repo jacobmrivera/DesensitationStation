@@ -11,14 +11,14 @@ window.addEventListener("DOMContentLoaded", (event) => {
     const saturationSlider = document.getElementById('saturationSlider');
     const saturationValue = document.getElementById('saturationValue');
 
-    const rednessSlider = document.getElementById('rednessSlider');
-    const rednessValue = document.getElementById('rednessValue');
+    // const rednessSlider = document.getElementById('rednessSlider');
+    // const rednessValue = document.getElementById('rednessValue');
 
-    const greennessSlider = document.getElementById('greennessSlider');
-    const greennessValue = document.getElementById('greennessValue');
+    // const greennessSlider = document.getElementById('greennessSlider');
+    // const greennessValue = document.getElementById('greennessValue');
 
-    const bluenessSlider = document.getElementById('bluenessSlider');
-    const bluenessValue = document.getElementById('bluenessValue');
+    // const bluenessSlider = document.getElementById('bluenessSlider');
+    // const bluenessValue = document.getElementById('bluenessValue');
 
 
     // Add an event listener to the brightnessSlider to detect value changes
