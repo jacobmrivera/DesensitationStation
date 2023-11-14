@@ -9,35 +9,30 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
   </head>
   <body>
-    <script src="shaders.js"></script>
+    <script src="flash_detector_working.js"></script>
+
+    <!-- <script src="shaders.js"></script> -->
+    <script src="practiceScripts/sliders.js"></script>
+
     <script src="compressor.js"></script>
     <script src="buttons.js"></script>
-    <script src="flash_detection.js"></script>
 
     <div class='parent'>
       <h1> The Desensitization Station </h1>
       <div id="videos-div">
-        <div class="video">
-          <!-- <div>
+        <div class="video-panel">
+          <div>
             <h2> Input Video </h2>
-          </div> -->
-          <!-- <video id="inputVideo"  width="1920" height="1080" controls autoplay>
-
-            <source src="dog_video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video> -->
-          <video id="inputVideo" src="flashing.mp4"  width="1920" height="1080" controls>
-
+          </div>
+          <video id="inputVideo" src="pokemon.mp4"   controls>
         </div>
 
-        <div class="video">
+        <div class="video-panel">
           <div>
             <h2> Resulting Video </h2>
           </div>
           <div id="canvasDiv">
             <canvas id="outputCanvas"  width="1920" height="1080" ></canvas>
-            <canvas id="canvas"  width="1920" height="1080" ></canvas>
-
           </div>
         </div>
       </div>
@@ -48,35 +43,47 @@
         <button id="pause-button" class="control-buttons" onclick="pause">Pause</button>
       </div>
 
-      <div id="video-settings">
-        <div class="play-settings">
-          <h3> Visual Filtering </h3>
-          <div class="vis-filter">
-            <label> Brightness </label>
-            <input type="range" id="brightnessSlider" min="0" max="200" value="100">
-            <span id="brightnessValue">100%</span>
-          </div>
-          <div class="vis-filter">
-            <label> Saturation </label>
-            <input type="range" id="saturationSlider" min="0" max="100" value="100">
-            <span id="saturationValue">100%</span>
-          </div>
-          <div class="vis-filter">
-            <label> Redness </label>
-            <input type="range" id="rednessSlider" min="0" max="100" value="100">
-            <span id="rednessValue">100%</span>
-          </div>
-          <div class="vis-filter">
-            <label> Greenness </label>
-            <input type="range" id="greennessSlider" min="0" max="100" value="100">
-            <span id="greennessValue">100%</span>
-          </div>
-          <div class="vis-filter">
-            <label> Blueness </label>
-            <input type="range" id="bluenessSlider" min="0" max="100" value="100">
-            <span id="bluenessValue">100%</span>
-          </div>
-
+          <div id="video-settings">
+            <div class="play-settings">
+              <h3> Visual Filtering </h3>
+              <div class="vis-filter">
+                <label> Brightness </label>
+                <div style="display: flex; flex: 1;">
+                  <input type="range" id="brightnessSlider" min="0" max="200" value="100" >
+                  <span id="brightnessValue" class="sliderVal">100%</span>
+                </div>
+              </div>
+              <div class="vis-filter">
+                <label> Saturation </label>
+                <div style="display: flex; flex: 1;">
+                  <input type="range" id="saturationSlider" min="0" max="100" value="100" >
+                  <span id="saturationValue" class="sliderVal">100%</span>
+                </div>
+              </div>
+              <div class="vis-filter" >
+                <label> Redness </label>
+                <div style="display: flex; flex: 1;">
+                  <input type="range" id="rednessSlider" min="0" max="100" value="100" >
+                  <span id="rednessValue" class="sliderVal">100%</span>
+                </div>
+              </div>
+              <div class="vis-filter">
+                <label> Greenness </label>
+                <div style="display: flex; flex: 1;">
+                  <input type="range" id="greennessSlider" min="0" max="100" value="100">
+                  <span id="greennessValue" class="sliderVal">100%</span>
+                </div>
+              </div>
+              <div class="vis-filter">
+                <label> Blueness </label>
+                <div style="display: flex; flex: 1;">
+                  <input type="range" id="bluenessSlider" min="0" max="100" value="100" >
+                  <span id="bluenessValue" class="sliderVal">100%</span>
+                </div>
+              </div>
+            <!-- </div> -->
+          
+          
 
           <div id="color-buttons-div">
             <!-- Red deficient -->
@@ -110,5 +117,6 @@
           initFlashDetection();
       });
     </script> -->
+
   </body>
 </html>

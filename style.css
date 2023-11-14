@@ -5,11 +5,7 @@
     flex-direction: row;
 }
 
-#inputVideo {
-    width: 90%;
-    padding: 2rem;
 
-}
 
 .parent {
     font-family: sans-serif;
@@ -22,7 +18,9 @@
 #video-settings{
     display: flex;
     flex-direction: row;
-    /* justify-content: center; */
+    justify-content: center;
+    flex: 1;
+    
 }
 
 .play-settings {
@@ -31,7 +29,8 @@
     flex-direction: row;
     border: 0px;
     padding: 1rem 1rem;
-    
+    width: 50%;
+
 }
 
 #videos-div {
@@ -39,14 +38,23 @@
     flex-direction: row;
     justify-content: space-between;
     /* width: 50%; */
-
 }
 
-.video {
-    width: 50%;
+.video-panel{
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between; */
+    width:50%;
+}
+
+
+
+#inputVideo {
+    width: 90%;
+    padding: 2rem;
+    /* width: 50%;
+    display: flex;
+    flex-direction: column;*/
+    /* visibility: hidden; */
 }
 
 /* #videos > .child {
@@ -54,11 +62,11 @@
 } */
 
 #outputCanvas{
-    width: 108%;
+    width: 100%;
 }
 
 #canvasDiv {
-    /* width: 100px; */
+    width: 90%;
     padding: 2rem 2rem 3rem 2rem;
     /* vertical-align: middle; */
     text-align: center;
@@ -72,11 +80,11 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    /* width: 30%; */
+    width: 80%;
 }
 
 .vis-filter > label {
-    width: 50%;
+    /* width: 50%; */
     text-align: left;
     /* padding: 5px; */
 }
@@ -97,4 +105,88 @@
 
 #canvas {
     width: 40%;
+    /* visibility: hidden; */
 }
+
+#canvasDiv {
+    /* visibility: hidden; */
+
+}
+
+
+/* Style the video settings container */
+#video-settings {
+    display: flex;
+  }
+  
+  /* Style the play settings container */
+  .play-settings {
+    flex: 1;
+  }
+  
+  /* Style the visual filtering heading */
+  .play-settings h3 {
+    margin-bottom: 20px;
+  }
+  
+  /* Style the vis-filter container */
+  .vis-filter {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  
+  /* Style the vis-filter labels */
+  .vis-filter label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 20px;
+    width: 30%;
+  }
+  
+  /* Style the vis-filter input and value containers */
+  .vis-filter div {
+    display: flex;
+  }
+  
+  /* Style the vis-filter input sliders */
+  .vis-filter input[type="range"] {
+    flex: 1;
+    margin-right: 10px;
+    /* width: 60%; */
+  }
+  
+  /* Style the vis-filter value indicators */
+  .vis-filter span {
+    font-size: 20px;
+  }
+
+  .sliderVal {
+    width:20%;
+
+  }
+
+  .control-buttons {
+    min-width: 130px;
+    height: 40px;
+    color: #fff;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    border-radius: 5px;
+    border: none;
+    background: #3a86ff;
+    box-shadow: 0 5px #4433ff;
+    margin: 1%;
+  }
+  .control-buttons:hover {
+    box-shadow: 0 3px #4433ff;
+    top: 1px;
+  }
+  .control-buttons:active {
+    box-shadow: 0 0 #4433ff;
+    top: 5px;
+  }
