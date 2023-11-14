@@ -158,42 +158,28 @@ window.addEventListener("DOMContentLoaded", (event) => {
     const ctx = canvas.getContext('2d');
 
     videoPlayer.addEventListener('play', function() {
+
+
+      let intervalId1 = setInterval(() => {
+
         canvas.width = videoPlayer.width;
         canvas.height = videoPlayer.height;
-        drawVideo();
-    });
-
-    function drawVideo() {
-        if (videoPlayer.paused || videoPlayer.ended) return;
-        // ctx.drawImage(videoPlayer, 0, 0, canvas.width, canvas.height);
-        
-        // // Get the pixel data
-        // const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        
-        // const data = imageData.data;
-
+        // drawVideo();
         const redMultiplier = 0.1; // 50% increase in red
         const greenMultiplier = 0.2; // 20% increase in green
         const blueMultiplier = 0.8;
-        // // Loop through each pixel and subtract red channel
-        // for (let i = 0; i < data.length; i += 4) {
-        //     // Subtract the red channel value from 255 (inverting it)
-        //     data[i] = 255 - data[i];
-        // }
-
         applyRGBMultipliersAndDrawVideo(video, canvas, ctx, redMultiplier, greenMultiplier, blueMultiplier) 
+        console.log("after apply colors");
+      }, 100);
 
-    }
-
-
-
+    });
 
 
     function applyRGBMultipliersAndDrawVideo(video, canvas, context, redMultiplier, greenMultiplier, blueMultiplier) {
       // Read the current frame's pixel data
       context.drawImage(videoPlayer, 0, 0, 1920, 1080);
       // const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
+      
         const imageData = context.getImageData(0, 0, 1920 , 1080);
     
       // Apply multipliers to each pixel's RGB values
