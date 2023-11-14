@@ -157,10 +157,11 @@ window.addEventListener("DOMContentLoaded", (event) => {
     const canvas = document.getElementById('outputCanvas');
     const ctx = canvas.getContext('2d');
 
-    videoPlayer.addEventListener('play', function() {
+    videoPlayer.onplay = (event) => {
 
 
       let intervalId1 = setInterval(() => {
+        console.log("after apply colors");
 
         canvas.width = videoPlayer.width;
         canvas.height = videoPlayer.height;
@@ -168,20 +169,20 @@ window.addEventListener("DOMContentLoaded", (event) => {
         const redMultiplier = 0.1; // 50% increase in red
         const greenMultiplier = 0.2; // 20% increase in green
         const blueMultiplier = 0.8;
-        applyRGBMultipliersAndDrawVideo(video, canvas, ctx, redMultiplier, greenMultiplier, blueMultiplier) 
-        console.log("after apply colors");
+        applyRGBMultipliersAndDrawVideo(videoPlayer, canvas, ctx, redMultiplier, greenMultiplier, blueMultiplier)
       }, 100);
 
-    });
+    // });
+  };
 
 
     function applyRGBMultipliersAndDrawVideo(video, canvas, context, redMultiplier, greenMultiplier, blueMultiplier) {
       // Read the current frame's pixel data
-      context.drawImage(videoPlayer, 0, 0, 1920, 1080);
+      context.drawImage(video, 0, 0, 1920, 1080);
       // const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      
-        const imageData = context.getImageData(0, 0, 1920 , 1080);
-    
+
+      const imageData = context.getImageData(0, 0, 1920 , 1080);
+
       // Apply multipliers to each pixel's RGB values
       for (let i = 0; i < imageData.data.length; i += 4) {
         const redValue = imageData.data[i];
@@ -192,9 +193,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
         const modifiedGreenValue = Math.floor(greenValue * greenMultiplier);
         const modifiedBlueValue = Math.floor(blueValue * blueMultiplier);
     
-        imageData.data[i] = modifiedRedValue;
-        imageData.data[i + 1] = modifiedGreenValue;
-        imageData.data[i + 2] = modifiedBlueValue;
+        // imageData.data[i] = modifiedRedValue;
+        // imageData.data[i + 1] = modifiedGreenValue;
+        // imageData.data[i + 2] = modifiedBlueValue;
+        imageData.data[i] = 100;
+        imageData.data[i + 1] = 100;
+        imageData.data[i + 2] = 100;
       }
     
       // Update the canvas with the modified pixel data
