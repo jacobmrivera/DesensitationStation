@@ -1,6 +1,9 @@
 // export var filter_num = -1;
-// Export the variable to make it accessible to other files
+
+import { extractFrame, displayFrame } from './frames.js';
+
 let frameCount = 0;
+let flashingFrameCount = 0;
 let lastValidFrame = null;
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -174,55 +177,34 @@ document.addEventListener('DOMContentLoaded', function() {
         //TODO: this logic doesnt keep the frame on the screen for the duration of the second
         //if we have detected flashing, only show a new frame every 32 frames
         //~32 frames = 1 second
+        if(flash_detected == '1' && !video.paused)
+            flashingFrameCount++;
+        
         if(flash_detected == '1' && frameCount % 32 == 0){
             console.log('Drawing delayed frame (flashing occured)');
-            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            // extract current frame from video
+            extractFrame();
+            // show the extracted frame on the canvas
+            displayFrame();
+            ////gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
         } 
+        else if (flash_detected == '1'){
+            // show the last captured frame on the canvas
+            displayFrame();
+        }
         else if (flash_detected == '-1'){
             gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
         }
-        
-
-        // TODO: attempt 2
-        //lastValidFrame = gl.createTexture();
-        // if (flash_detected === '1') {
-        //     if (frameCount % 32 === 0) {
-        //         console.log('Delayed frame (flashing occurred)');
-        //         gl.bindTexture(gl.TEXTURE_2D, lastValidFrame);
-        //         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-        //         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        //         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-        //         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        //         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, video);
-        //     }
-        //     if (lastValidFrame) {
-        //         gl.bindTexture(gl.TEXTURE_2D, lastValidFrame);
-        //     }
-        // } else {
-        //     gl.bindTexture(gl.TEXTURE_2D, texture);
-        // }
     
-        // gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-    
-        frameCount++;
+        if(!video.paused)
+            frameCount++;
     
         requestAnimationFrame(render);
-    }
 
-    function testDrawLastValidFrame() {
-        // Set the canvas size to match the video dimensions if necessary
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-    
-        // Clear canvas
-        gl.clear(gl.COLOR_BUFFER_BIT);
-    
-        // Bind and draw the lastValidFrame directly to the canvas
-        gl.bindTexture(gl.TEXTURE_2D, lastValidFrame);
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-
-        console.log('Drawing lastValidFrame...');
-        console.log(lastValidFrame);
+        let flashingPercentage = frameCount !== 0 ? (flashingFrameCount / frameCount) * 100 : 0;
+        console.log("Flashing percentage: " + flashingPercentage);
+        const flashingPercentageElement = document.getElementById('flashingPercentage');
+        flashingPercentageElement.textContent = `${flashingPercentage.toFixed(2)}%`;
     }
 
     saturationSlider.addEventListener('input', function() {
