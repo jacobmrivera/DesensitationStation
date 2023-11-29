@@ -1,6 +1,7 @@
 // export var filter_num = -1;
 // Export the variable to make it accessible to other files
-
+let frameCount = 0;
+let lastValidFrame = null;
 
 document.addEventListener('DOMContentLoaded', function() {
     const video = document.getElementById('inputVideo');
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let originalGreenness = 1.0;
     let originalBlueness = 1.0;
     let originalBrightness = 1.0;
-    let filter_num = 1;
+    let flash_detected = 1;
 
     const vertexShaderSource = `
         attribute vec2 a_position;
@@ -56,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
         uniform float u_blueness;
         uniform float u_greenness;
         uniform float u_brightness;
-        uniform int u_filterNum;
+        uniform int u_flashDetected;
 
         void main() {
             vec4 color = texture2D(u_texture, v_texcoord);
@@ -77,13 +78,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Apply brightness
             color.rgb *= u_brightness;
 
-            if (u_filterNum == 1 ){
-                color.r = 0.0;
-            } else if (u_filterNum == 2){
-                color.g = 0.0;
-            } else if (u_filterNum == 3){
-                color.b = 0.0;
-            }
             gl_FragColor = color;
         }
     `;
@@ -149,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const uBluenessLocation = gl.getUniformLocation(shaderProgram, 'u_blueness');
     const uGreennessLocation = gl.getUniformLocation(shaderProgram, 'u_greenness');
     const uBrightnessLocation = gl.getUniformLocation(shaderProgram, 'u_brightness');
-    const uFilterNum = gl.getUniformLocation(shaderProgram, 'u_filterNum');
+    const uFlashDetected = gl.getUniformLocation(shaderProgram, 'u_flashDetected');
 
     gl.uniform1i(uTextureLocation, 0);
     gl.uniform1f(uSaturationLocation, originalSaturation);
@@ -174,12 +168,61 @@ document.addEventListener('DOMContentLoaded', function() {
         gl.uniform1f(uBluenessLocation, originalBlueness);
         gl.uniform1f(uGreennessLocation, originalGreenness);
         gl.uniform1f(uBrightnessLocation, originalBrightness);
-        filter_num =  document.getElementById("filter_num").textContent;
-        gl.uniform1i(uFilterNum, filter_num);
+        flash_detected =  document.getElementById("flash_detected").textContent;
+        gl.uniform1i(uFlashDetected, flash_detected);
 
+        //TODO: this logic doesnt keep the frame on the screen for the duration of the second
+        //if we have detected flashing, only show a new frame every 32 frames
+        //~32 frames = 1 second
+        if(flash_detected == '1' && frameCount % 32 == 0){
+            console.log('Drawing delayed frame (flashing occured)');
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        } 
+        else if (flash_detected == '-1'){
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        }
+        
+
+        // TODO: attempt 2
+        //lastValidFrame = gl.createTexture();
+        // if (flash_detected === '1') {
+        //     if (frameCount % 32 === 0) {
+        //         console.log('Delayed frame (flashing occurred)');
+        //         gl.bindTexture(gl.TEXTURE_2D, lastValidFrame);
+        //         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        //         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        //         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        //         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        //         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, video);
+        //     }
+        //     if (lastValidFrame) {
+        //         gl.bindTexture(gl.TEXTURE_2D, lastValidFrame);
+        //     }
+        // } else {
+        //     gl.bindTexture(gl.TEXTURE_2D, texture);
+        // }
+    
+        // gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    
+        frameCount++;
+    
+        requestAnimationFrame(render);
+    }
+
+    function testDrawLastValidFrame() {
+        // Set the canvas size to match the video dimensions if necessary
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+    
+        // Clear canvas
+        gl.clear(gl.COLOR_BUFFER_BIT);
+    
+        // Bind and draw the lastValidFrame directly to the canvas
+        gl.bindTexture(gl.TEXTURE_2D, lastValidFrame);
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 
-        requestAnimationFrame(render);
+        console.log('Drawing lastValidFrame...');
+        console.log(lastValidFrame);
     }
 
     saturationSlider.addEventListener('input', function() {
@@ -234,9 +277,9 @@ document.addEventListener('DOMContentLoaded', function() {
         bluenessValue.innerText = "100%";
     });
 
-    document.getElementById("filter_num").addEventListener('input', function() {
-        filter_num = document.getElementById("filter_num").textContent;
-        console.log(filter_num);
+    document.getElementById("flash_detected").addEventListener('input', function() {
+        flash_detected = document.getElementById("flash_detected").textContent;
+        console.log(flash_detected);
     });
 
     video.addEventListener('loadedmetadata', function() {
