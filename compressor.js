@@ -90,8 +90,8 @@ document.addEventListener('DOMContentLoaded', function () {
             if (selectedFilter !== 'none') {
                 filter = audioContext.createBiquadFilter();
                 filter.type = selectedFilter;
-                filter.frequency.value = 1000;
-                filter.Q.value = 1;
+                filter.frequency.value = 2000;
+                filter.Q.value = 5;
 
                 source.disconnect();
                 source.connect(filter);
