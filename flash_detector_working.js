@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         detectFlashing(videoElement, canvasElement, context, threshold);
     }
     // detectFlashingWithBitmap(videoElement, threshold)
-    if (flashCount >= 3) {
+    if (flashCount >= 2) {
 
       console.log('Three or more flashes detected!');
       // clearInterval(intervalId);
