@@ -27,7 +27,9 @@
           <div style="visibility: hidden; position: absolute;">
             <h2> Input Video </h2>
           </div>
-          <video style="visibility: hidden;" id="inputVideo" src="pokemon.mp4"   controls >
+          <video style="visibility: hidden;" id="inputVideo"   controls >
+            <!-- <video style="visibility: hidden;" id="inputVideo" src="pokemon.mp4"   controls > -->
+
         </div>
 
         <div class="video-panel">
@@ -46,7 +48,9 @@
       <div id="controls">
         <button id="play-button" class="control-buttons" onclick="play">Play</button>
         <button id="pause-button" class="control-buttons" onclick="pause">Pause</button>
+
       </div>
+      <input type="file" id="videoForm" class="control-buttons" accept="video/*" style="align-content: center;">
 
           <div id="video-settings">
             <div class="play-settings">
@@ -103,7 +107,7 @@
         <div class="play-settings">
           <h3> Audio Filtering </h3>
           <div>
-            <label for="filterType">Select Filter Type:</label>
+            <label for="filterType">High/Low Pass Filter:</label>
             <select id="filterType">
               <option value="none">No Filter</option>
               <option value="lowpass">Low-Pass Filter</option>
@@ -140,6 +144,7 @@
     </script> -->
 
     <div id="flash_detected" style="visibility: hidden;">-1</div>
+
 
   </body>
 </html>

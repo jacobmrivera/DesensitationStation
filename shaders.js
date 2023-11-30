@@ -168,11 +168,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function render() {
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-        if (document.getElementById('toggle').checked && document.getElementById('flash_detected').textContent == 1) {
-            if (showAlternateFrame && frameCount % 18 != 0) {
-                frameCount+=1;
-                requestAnimationFrame(render);
+        if (!video.paused){
+            frameCount+=1;
 
+        }
+
+        if (document.getElementById('toggle').checked && document.getElementById('flash_detected').textContent == 1) {
+            if (showAlternateFrame && frameCount % 25 != 0) {
+                flashingFrameCount +=1;
+
+                requestAnimationFrame(render);
+                let flashingPercentage = frameCount !== 0 ? (flashingFrameCount / frameCount) * 100 : 0;
+                // console.log("Flashing percentage: " + flashingPercentage);
+                const flashingPercentageElement = document.getElementById('flashingPercentage');
+                flashingPercentageElement.textContent = `${flashingPercentage.toFixed(2)}%`;
                 return;
             }
         }
@@ -220,8 +229,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-        if(!video.paused)
-            frameCount++;
+        // if(!video.paused)
+        //     frameCount++;
     
         requestAnimationFrame(render);
 
@@ -296,8 +305,17 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Path to source video
-    video.src = 'pokemon.mp4';
+    // video.src = 'mickey.mp4';
 
-
+    const videoInput = document.getElementById('videoForm');
+    // const selectedVideo = document.getElementById('inputVideo');
+    
+    videoInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        const videoURL = URL.createObjectURL(file);
+    
+        video.src = videoURL;
+        video.load(); // Load the selected video
+      });
 
 });

@@ -1,5 +1,6 @@
-
-
+body {
+  background-color: #e9e7e0;
+}
 #interface{
     display: flex;
     flex-direction: row;
@@ -181,6 +182,7 @@
   }
 
   .control-buttons, .color-button{
+
     min-width: 130px;
     height: 40px;
     color: #fff;
@@ -263,4 +265,11 @@
 
 .switch input:checked + .slider:before {
   transform: translateX(1.6em);
+}
+
+
+#videoForm  input {
+  text-align: center;
+  margin: 0 auto; /* Center input fields */
+  display: block; /* Place input fields on new lines */
 }
