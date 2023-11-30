@@ -173,29 +173,34 @@ document.addEventListener('DOMContentLoaded', function() {
         gl.uniform1f(uBrightnessLocation, originalBrightness);
         flash_detected =  document.getElementById("flash_detected").textContent;
         gl.uniform1i(uFlashDetected, flash_detected);
-
-        //TODO: this logic doesnt keep the frame on the screen for the duration of the second
-        //if we have detected flashing, only show a new frame every 32 frames
-        //~32 frames = 1 second
-        if(flash_detected == '1' && !video.paused)
-            flashingFrameCount++;
-        
-        if(flash_detected == '1' && frameCount % 32 == 0){
-            console.log('Drawing delayed frame (flashing occured)');
-            // extract current frame from video
-            extractFrame();
-            // show the extracted frame on the canvas
-            displayFrame();
-            ////gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-        } 
-        else if (flash_detected == '1'){
-            // show the last captured frame on the canvas
-            displayFrame();
-        }
-        else if (flash_detected == '-1'){
+        console.log(document.getElementById('toggle').checked);
+        if (document.getElementById('toggle').checked){
+            //TODO: this logic doesnt keep the frame on the screen for the duration of the second
+            //if we have detected flashing, only show a new frame every 32 frames
+            //~32 frames = 1 second
+            if(flash_detected == '1' && !video.paused)
+                flashingFrameCount++;
+            
+            if(flash_detected == '1' && frameCount % 32 == 0){
+                console.log('Drawing delayed frame (flashing occured)');
+                // extract current frame from video
+                extractFrame();
+                // show the extracted frame on the canvas
+                displayFrame();
+                ////gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            } 
+            else if (flash_detected == '1'){
+                // show the last captured frame on the canvas
+                displayFrame();
+            }
+            else if (flash_detected == '-1'){
+                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            }
+        } else {
             gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
         }
-    
+
+
         if(!video.paused)
             frameCount++;
     

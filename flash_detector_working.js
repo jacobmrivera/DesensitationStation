@@ -76,4 +76,15 @@ document.addEventListener('DOMContentLoaded', function() {
 //     document.dispatchEvent(event);
 //   }
 
+
+// const myCheckbox = document.getElementById('toggle');
+
+// // Function to get the state of the checkbox
+// function getCheckboxState() {
+//   return myCheckbox.checked; // Returns true if checked, false otherwise
+// }
+
+
+
   });
+
