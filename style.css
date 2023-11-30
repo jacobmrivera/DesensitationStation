@@ -79,17 +79,16 @@
     width: 10%;
 }
 
-.vis-filter{
+/* .vis-filter{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 80%;
-}
+    width: 90%;
+} */
 
-.vis-filter > label {
-    /* width: 50%; */
-    text-align: left;
-    /* padding: 5px; */
+.sliderVal {
+  width:50%;
+  display: flex;
 }
 
 
@@ -100,6 +99,8 @@
     align-items: center;
 
 }
+
+
 
 .color-button {
     margin: 3%;
@@ -135,15 +136,16 @@
   /* Style the vis-filter container */
   .vis-filter {
     display: flex;
+    justify-content: space-between;
     margin-bottom: 10px;
   }
   
   /* Style the vis-filter labels */
   .vis-filter label {
-    display: block;
+    display: flex;
     margin-bottom: 5px;
     font-size: 20px;
-    width: 30%;
+    width: 60%;
   }
   
   /* Style the vis-filter input and value containers */
