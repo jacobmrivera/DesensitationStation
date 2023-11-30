@@ -17,6 +17,8 @@ function extractFrame() {
 
     // Save the frame as an image data URL
     extractedFrameData = canvas.toDataURL();
+
+    
 }
 
 function displayFrame() {

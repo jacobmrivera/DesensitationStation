@@ -155,11 +155,27 @@ document.addEventListener('DOMContentLoaded', function() {
     gl.uniform1f(uGreennessLocation, originalGreenness);
     gl.uniform1f(uBrightnessLocation, originalBrightness);
 
+    let showFrame = false;
+    let frameToDisplay = null;
+    let frameDisplayCount = 0;
+    let showAlternateFrame = true;
 
+    function toggleFrameDisplay(frame) {
+        showFrame = true;
+        frameToDisplay = frame;
+        frameDisplayCount = 0;
+    }
 
     function render() {
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+        if (document.getElementById('toggle').checked && document.getElementById('flash_detected').textContent == 1) {
+            if (showAlternateFrame && frameCount % 18 != 0) {
+                frameCount+=1;
+                requestAnimationFrame(render);
 
+                return;
+            }
+        }
         gl.clear(gl.COLOR_BUFFER_BIT);
 
         gl.activeTexture(gl.TEXTURE0);
@@ -171,34 +187,37 @@ document.addEventListener('DOMContentLoaded', function() {
         gl.uniform1f(uBluenessLocation, originalBlueness);
         gl.uniform1f(uGreennessLocation, originalGreenness);
         gl.uniform1f(uBrightnessLocation, originalBrightness);
-        flash_detected =  document.getElementById("flash_detected").textContent;
+
         gl.uniform1i(uFlashDetected, flash_detected);
-        console.log(document.getElementById('toggle').checked);
-        if (document.getElementById('toggle').checked){
-            //TODO: this logic doesnt keep the frame on the screen for the duration of the second
-            //if we have detected flashing, only show a new frame every 32 frames
-            //~32 frames = 1 second
-            if(flash_detected == '1' && !video.paused)
-                flashingFrameCount++;
-            
-            if(flash_detected == '1' && frameCount % 32 == 0){
-                console.log('Drawing delayed frame (flashing occured)');
-                // extract current frame from video
-                extractFrame();
-                // show the extracted frame on the canvas
-                displayFrame();
-                ////gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-            } 
-            else if (flash_detected == '1'){
-                // show the last captured frame on the canvas
-                displayFrame();
-            }
-            else if (flash_detected == '-1'){
-                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-            }
-        } else {
+
+
+        //     if (showAlternateFrame ) {
+        //         toggleFrameDisplay(video);
+        //         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    
+        //         // Update canvas size to match the captured frame
+        //         canvas.width = frameToDisplay.videoWidth;
+        //         canvas.height = frameToDisplay.videoHeight;
+    
+        //         // Bind the captured frame as the texture data
+        //         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, frameToDisplay);
+    
+        //         // Render the captured frame every other frame
+        //         if (frameDisplayCount % 2 === 0) {
+        //             gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        //         } else {
+        //             // Bind the current frame for two frames
+        //             gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, currentFrame);
+        //             gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        //         }
+        //         frameDisplayCount++;
+        //     } else {
+        //         showAlternateFrame = false; // Reset frame display
+        //     }
+        // } else {
             gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-        }
+        // }
+
 
 
         if(!video.paused)
@@ -207,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
         requestAnimationFrame(render);
 
         let flashingPercentage = frameCount !== 0 ? (flashingFrameCount / frameCount) * 100 : 0;
-        console.log("Flashing percentage: " + flashingPercentage);
+        // console.log("Flashing percentage: " + flashingPercentage);
         const flashingPercentageElement = document.getElementById('flashingPercentage');
         flashingPercentageElement.textContent = `${flashingPercentage.toFixed(2)}%`;
     }
