@@ -17,23 +17,25 @@
 
     <script src="compressor.js"></script>
     <script src="buttons.js"></script>
-    <script src="slider_test.js"></script>
+    <!-- <script src="slider_test.js"></script> -->
 
 
     <div class='parent'>
-      <h1> The Desensitization Station </h1>
+      <h1 style="margin: 0%;"> The Desensitization Station </h1>
       <div id="videos-div">
         <div class="video-panel">
-          <div>
+          <div style="visibility: hidden; position: absolute;">
             <h2> Input Video </h2>
           </div>
-          <video id="inputVideo" src="mickey.mp4"   controls>
+          <video style="visibility: hidden;" id="inputVideo"   controls >
+            <!-- <video style="visibility: hidden;" id="inputVideo" src="pokemon.mp4"   controls > -->
+
         </div>
 
         <div class="video-panel">
-          <div>
+          <!-- <div>
             <h2> Resulting Video </h2>
-          </div>
+          </div> -->
           <div id="canvasDiv">
             <canvas id="outputCanvas"  width="1920" height="1080" ></canvas>
             <canvas id="outputCanvas2"  width="1920" height="1080" style="position:absolute"></canvas>
@@ -46,7 +48,9 @@
       <div id="controls">
         <button id="play-button" class="control-buttons" onclick="play">Play</button>
         <button id="pause-button" class="control-buttons" onclick="pause">Pause</button>
+
       </div>
+      <input type="file" id="videoForm" class="control-buttons" accept="video/*" style="align-content: center;">
 
           <div id="video-settings">
             <div class="play-settings">
@@ -103,7 +107,7 @@
         <div class="play-settings">
           <h3> Audio Filtering </h3>
           <div>
-            <label for="filterType">Select Filter Type:</label>
+            <label for="filterType">High/Low Pass Filter:</label>
             <select id="filterType">
               <option value="none">No Filter</option>
               <option value="lowpass">Low-Pass Filter</option>
@@ -114,16 +118,33 @@
             <label for="threshold">Compression Threshold:</label>
             <input type="range" id="threshold" min="-100" max="0" step="1" value="-50">
           </div>
+
+        </div>
+
+        <div class="play-settings">
+          <h3> Flashing Detection </h3>
+          <label class="switch" >
+            <input type="checkbox" id="toggle">
+            <span class="slider"></span>
+          </label>
+
+          <h3> Flashing Percentage </h3>
+          <div>
+            <div id="flashingPercentage" class="flashing-percentage">0%</div>
+          </div>
         </div>
       </div>
     </div>
+
+
     <!-- <script>
       document.getElementById('videoPlayer').addEventListener('play', function() {
           initFlashDetection();
       });
     </script> -->
 
-    <div id="filter_num" style="visibility: hidden;">-1</div>
+    <div id="flash_detected" style="visibility: hidden;">-1</div>
+
 
   </body>
 </html>

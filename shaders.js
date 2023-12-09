@@ -1,6 +1,10 @@
 // export var filter_num = -1;
-// Export the variable to make it accessible to other files
 
+import { extractFrame, displayFrame } from './frames.js';
+
+let frameCount = 0;
+let flashingFrameCount = 0;
+let lastValidFrame = null;
 
 document.addEventListener('DOMContentLoaded', function() {
     const video = document.getElementById('inputVideo');
@@ -35,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let originalGreenness = 1.0;
     let originalBlueness = 1.0;
     let originalBrightness = 1.0;
-    let filter_num = 1;
+    let flash_detected = 1;
 
     const vertexShaderSource = `
         attribute vec2 a_position;
@@ -56,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
         uniform float u_blueness;
         uniform float u_greenness;
         uniform float u_brightness;
-        uniform int u_filterNum;
+        uniform int u_flashDetected;
 
         void main() {
             vec4 color = texture2D(u_texture, v_texcoord);
@@ -77,13 +81,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Apply brightness
             color.rgb *= u_brightness;
 
-            if (u_filterNum == 1 ){
-                color.r = 0.0;
-            } else if (u_filterNum == 2){
-                color.g = 0.0;
-            } else if (u_filterNum == 3){
-                color.b = 0.0;
-            }
             gl_FragColor = color;
         }
     `;
@@ -149,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const uBluenessLocation = gl.getUniformLocation(shaderProgram, 'u_blueness');
     const uGreennessLocation = gl.getUniformLocation(shaderProgram, 'u_greenness');
     const uBrightnessLocation = gl.getUniformLocation(shaderProgram, 'u_brightness');
-    const uFilterNum = gl.getUniformLocation(shaderProgram, 'u_filterNum');
+    const uFlashDetected = gl.getUniformLocation(shaderProgram, 'u_flashDetected');
 
     gl.uniform1i(uTextureLocation, 0);
     gl.uniform1f(uSaturationLocation, originalSaturation);
@@ -158,11 +155,36 @@ document.addEventListener('DOMContentLoaded', function() {
     gl.uniform1f(uGreennessLocation, originalGreenness);
     gl.uniform1f(uBrightnessLocation, originalBrightness);
 
+    let showFrame = false;
+    let frameToDisplay = null;
+    let frameDisplayCount = 0;
+    let showAlternateFrame = true;
 
+    function toggleFrameDisplay(frame) {
+        showFrame = true;
+        frameToDisplay = frame;
+        frameDisplayCount = 0;
+    }
 
     function render() {
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+        if (!video.paused){
+            frameCount+=1;
 
+        }
+
+        if (document.getElementById('toggle').checked && document.getElementById('flash_detected').textContent == 1) {
+            if (showAlternateFrame && frameCount % 25 != 0) {
+                flashingFrameCount +=1;
+
+                requestAnimationFrame(render);
+                let flashingPercentage = frameCount !== 0 ? (flashingFrameCount / frameCount) * 100 : 0;
+                // console.log("Flashing percentage: " + flashingPercentage);
+                const flashingPercentageElement = document.getElementById('flashingPercentage');
+                flashingPercentageElement.textContent = `${flashingPercentage.toFixed(2)}%`;
+                return;
+            }
+        }
         gl.clear(gl.COLOR_BUFFER_BIT);
 
         gl.activeTexture(gl.TEXTURE0);
@@ -174,12 +196,48 @@ document.addEventListener('DOMContentLoaded', function() {
         gl.uniform1f(uBluenessLocation, originalBlueness);
         gl.uniform1f(uGreennessLocation, originalGreenness);
         gl.uniform1f(uBrightnessLocation, originalBrightness);
-        filter_num =  document.getElementById("filter_num").textContent;
-        gl.uniform1i(uFilterNum, filter_num);
 
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        gl.uniform1i(uFlashDetected, flash_detected);
 
+
+        //     if (showAlternateFrame ) {
+        //         toggleFrameDisplay(video);
+        //         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    
+        //         // Update canvas size to match the captured frame
+        //         canvas.width = frameToDisplay.videoWidth;
+        //         canvas.height = frameToDisplay.videoHeight;
+    
+        //         // Bind the captured frame as the texture data
+        //         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, frameToDisplay);
+    
+        //         // Render the captured frame every other frame
+        //         if (frameDisplayCount % 2 === 0) {
+        //             gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        //         } else {
+        //             // Bind the current frame for two frames
+        //             gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, currentFrame);
+        //             gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        //         }
+        //         frameDisplayCount++;
+        //     } else {
+        //         showAlternateFrame = false; // Reset frame display
+        //     }
+        // } else {
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        // }
+
+
+
+        // if(!video.paused)
+        //     frameCount++;
+    
         requestAnimationFrame(render);
+
+        let flashingPercentage = frameCount !== 0 ? (flashingFrameCount / frameCount) * 100 : 0;
+        // console.log("Flashing percentage: " + flashingPercentage);
+        const flashingPercentageElement = document.getElementById('flashingPercentage');
+        flashingPercentageElement.textContent = `${flashingPercentage.toFixed(2)}%`;
     }
 
     saturationSlider.addEventListener('input', function() {
@@ -234,9 +292,9 @@ document.addEventListener('DOMContentLoaded', function() {
         bluenessValue.innerText = "100%";
     });
 
-    document.getElementById("filter_num").addEventListener('input', function() {
-        filter_num = document.getElementById("filter_num").textContent;
-        console.log(filter_num);
+    document.getElementById("flash_detected").addEventListener('input', function() {
+        flash_detected = document.getElementById("flash_detected").textContent;
+        console.log(flash_detected);
     });
 
     video.addEventListener('loadedmetadata', function() {
@@ -247,8 +305,17 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Path to source video
-    video.src = 'pokemon.mp4';
+    // video.src = 'mickey.mp4';
 
-
+    const videoInput = document.getElementById('videoForm');
+    // const selectedVideo = document.getElementById('inputVideo');
+    
+    videoInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        const videoURL = URL.createObjectURL(file);
+    
+        video.src = videoURL;
+        video.load(); // Load the selected video
+      });
 
 });

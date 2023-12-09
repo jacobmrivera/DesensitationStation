@@ -1,5 +1,5 @@
-let filter_num = -1; // Declare the variable
-export { filter_num };
+let flash_detected = -1; // Declare the variable
+export { flash_detected };
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -9,13 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const context = canvasElement.getContext('2d', { willReadFrequently: true });
   const threshold = 20;
 
-  const filter_div = document.getElementById('filter_num');
+  const flash_div = document.getElementById('flash_detected');
   let previousFrameData = [];
   let flashCount = 0;
 
   setInterval(() => {
     flashCount = 0;
-    console.log("resetting");
+    //console.log("resetting");
   }, 1000);
 
   // Detect flashing every 1/10th of a second.
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         detectFlashing(videoElement, canvasElement, context, threshold);
     }
     // detectFlashingWithBitmap(videoElement, threshold)
-    if (flashCount >= 3) {
+    if (flashCount >= 2) {
 
       console.log('Three or more flashes detected!');
       // clearInterval(intervalId);
@@ -33,16 +33,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // Change the variable after 5 seconds
         setTimeout(() => {
-            filter_div.textContent = 1;
-            // sendFilterNum(1);
-            // filter_num = 1; // Change the filter
-            console.log('Red filter applied');
+          flash_div.textContent = 1;
+            console.log('Flash div content changed');
 
             // Revert the variable back after another 5 seconds
             setTimeout(() => {
-                filter_div.textContent = -1;
-                // sendFilterNum(-1); // Change the filter
-                console.log('Red filter reverted');
+              flash_div.textContent = -1;
+                console.log('Flash div content reverted');
             }, 5000); // Delay for reverting the variable
         }, 0); // Delay for changing the variable
     }
@@ -79,4 +76,15 @@ document.addEventListener('DOMContentLoaded', function() {
 //     document.dispatchEvent(event);
 //   }
 
+
+// const myCheckbox = document.getElementById('toggle');
+
+// // Function to get the state of the checkbox
+// function getCheckboxState() {
+//   return myCheckbox.checked; // Returns true if checked, false otherwise
+// }
+
+
+
   });
+

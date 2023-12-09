@@ -1,5 +1,6 @@
-
-
+body {
+  background-color: #e9e7e0;
+}
 #interface{
     display: flex;
     flex-direction: row;
@@ -10,15 +11,18 @@
 .parent {
     font-family: sans-serif;
     border: 0px;
-    margin: 1rem;
+    /* margin: 1rem; */
     padding: 2rem 2rem;
     text-align: center;
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
 }
 
 #video-settings{
     display: flex;
     flex-direction: row;
-    justify-content: center;
     flex: 1;
     
 }
@@ -36,14 +40,20 @@
 #videos-div {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     /* width: 50%; */
+    justify-content: center;
+
+    width: 60%;
 }
 
 .video-panel{
     display: flex;
     flex-direction: column;
-    width:50%;
+    /* height: 50%; */
+    /* justify-content: center; */
+    align-items: center;
+
 }
 
 
@@ -51,6 +61,7 @@
 #inputVideo {
     width: 90%;
     padding: 2rem;
+    position: absolute;
     /* width: 50%;
     display: flex;
     flex-direction: column;*/
@@ -69,27 +80,29 @@
     visibility: hidden;
 }
 #canvasDiv {
-    width: 90%;
-    padding: 2rem 2rem 3rem 2rem;
+    /* height: 50%; */
+    padding: 1rem 1rem 1rem 1rem;
+    margin: 1rem;
     /* vertical-align: middle; */
     text-align: center;
 }
 
-.control{
-    width: 10%;
+#controls{
+    /* width: 10%; */
+    display: flex;
+    flex-direction: row;
 }
 
-.vis-filter{
+/* .vis-filter{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 80%;
-}
+    width: 90%;
+} */
 
-.vis-filter > label {
-    /* width: 50%; */
-    text-align: left;
-    /* padding: 5px; */
+.sliderVal {
+  width:50%;
+  display: flex;
 }
 
 
@@ -101,6 +114,8 @@
 
 }
 
+
+
 .color-button {
     margin: 3%;
     width: 60%;
@@ -111,10 +126,7 @@
     /* visibility: hidden; */
 }
 
-#canvasDiv {
-    /* visibility: hidden; */
 
-}
 
 
 /* Style the video settings container */
@@ -135,15 +147,16 @@
   /* Style the vis-filter container */
   .vis-filter {
     display: flex;
+    justify-content: space-between;
     margin-bottom: 10px;
   }
   
   /* Style the vis-filter labels */
   .vis-filter label {
-    display: block;
+    display: flex;
     margin-bottom: 5px;
     font-size: 20px;
-    width: 30%;
+    width: 60%;
   }
   
   /* Style the vis-filter input and value containers */
@@ -168,7 +181,8 @@
 
   }
 
-  .control-buttons {
+  .control-buttons, .color-button{
+
     min-width: 130px;
     height: 40px;
     color: #fff;
@@ -183,13 +197,79 @@
     border: none;
     background: #3a86ff;
     box-shadow: 0 5px #4433ff;
-    margin: 1%;
+    margin: 2% 1% 2% 1%;
   }
-  .control-buttons:hover {
+  .control-buttons:hover, .color-button:hover {
     box-shadow: 0 3px #4433ff;
     top: 1px;
   }
-  .control-buttons:active {
+  .control-buttons:active, .color-button:active {
     box-shadow: 0 0 #4433ff;
     top: 5px;
   }
+
+
+
+
+
+/* Slider design */
+
+/* The switch - the box around the slider */
+.switch {
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 3.5em;
+  height: 2em;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: #9fccfa;
+  border-radius: 50px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2em;
+  width: 2em;
+  inset: 0;
+  background-color: white;
+  border-radius: 50px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.switch input:checked + .slider {
+  background: #0974f1;
+}
+
+.switch input:focus + .slider {
+  box-shadow: 0 0 1px #0974f1;
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(1.6em);
+}
+
+
+#videoForm  input {
+  text-align: center;
+  margin: 0 auto; /* Center input fields */
+  display: block; /* Place input fields on new lines */
+}
